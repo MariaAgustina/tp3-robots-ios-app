@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="18122" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="18093"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ResultsViewController" customModule="SearchProduct" customModuleProvider="target">
+            <connections>
+                <outlet property="resultsTableView" destination="g5T-Ze-clr" id="CQN-hI-NaQ"/>
+                <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
+            <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Resultados" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ik6-nf-XdO">
+                    <rect key="frame" x="164.5" y="86" width="85" height="21"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                    <nil key="textColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="g5T-Ze-clr">
+                    <rect key="frame" x="0.0" y="141" width="414" height="755"/>
+                    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    <connections>
+                        <outlet property="dataSource" destination="-1" id="iRF-cD-FGj"/>
+                        <outlet property="delegate" destination="-1" id="Jgt-DZ-okG"/>
+                    </connections>
+                </tableView>
+            </subviews>
+            <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
+            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+            <constraints>
+                <constraint firstItem="ik6-nf-XdO" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" constant="42" id="7Cc-oB-bwz"/>
+                <constraint firstItem="g5T-Ze-clr" firstAttribute="top" secondItem="ik6-nf-XdO" secondAttribute="bottom" constant="34" id="8On-6n-rVa"/>
+                <constraint firstItem="g5T-Ze-clr" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="Bl4-Cb-jG4"/>
+                <constraint firstItem="g5T-Ze-clr" firstAttribute="trailing" secondItem="fnl-2z-Ty3" secondAttribute="trailing" id="Jo6-1V-1ZQ"/>
+                <constraint firstItem="ik6-nf-XdO" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="QHe-Wg-1HJ"/>
+                <constraint firstAttribute="bottom" secondItem="g5T-Ze-clr" secondAttribute="bottom" id="wa7-Kg-zVh"/>
+            </constraints>
+            <point key="canvasLocation" x="137.68115942028987" y="114.50892857142857"/>
+        </view>
+    </objects>
+    <resources>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
+</document>
