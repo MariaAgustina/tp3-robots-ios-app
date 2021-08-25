@@ -15,7 +15,6 @@ class SearchProductsService: NSObject {
         //TODO: traer 10, y chequear que sean 10 en el enunciado
         let urlString = String(format: "https://api.mercadolibre.com/sites/MLA/search?q=%@", product)
         var request = URLRequest(url: URL(string: urlString)!)
-        request.setValue("Bearer APP_USR-8528745423837358-082423-20756f97fe18ec29afef48c49e766018-185371419", forHTTPHeaderField: "Authorization")
         
         let task = URLSession.shared.dataTask(with: request) {
             data, response, error in
