@@ -1,6 +1,0 @@
-framework module Pods_SearchProduct {
-  umbrella header "Pods-SearchProduct-umbrella.h"
-
-  export *
-  module * { export * }
-}

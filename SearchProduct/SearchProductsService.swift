@@ -6,7 +6,6 @@
 //
 
 import UIKit
-import AFNetworking
 
 class SearchProductsService: NSObject {
     
@@ -15,6 +14,7 @@ class SearchProductsService: NSObject {
         //TODO: traer 10, y chequear que sean 10 en el enunciado
         let urlString = String(format: "https://api.mercadolibre.com/sites/MLA/search?q=%@", product)
         var request = URLRequest(url: URL(string: urlString)!)
+        request.setValue(Constants.accessToken, forHTTPHeaderField: "Authorization")
         
         let task = URLSession.shared.dataTask(with: request) {
             data, response, error in
@@ -26,6 +26,7 @@ class SearchProductsService: NSObject {
                         successBlock(productsResult)
                     }
                 } else {
+                    print(error ?? "Error in requesting products")
                     errorBlock()
                 }
             }
