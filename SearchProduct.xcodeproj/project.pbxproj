@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		824A180A26D685F600E23F86 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 824A180926D685F600E23F86 /* Constants.swift */; };
+		824A180D26D6ECCF00E23F86 /* TakePhotoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 824A180B26D6ECCE00E23F86 /* TakePhotoViewController.swift */; };
+		824A180E26D6ECCF00E23F86 /* TakePhotoViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 824A180C26D6ECCE00E23F86 /* TakePhotoViewController.xib */; };
 		8259E48E26D45C580091D524 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8259E48D26D45C580091D524 /* AppDelegate.swift */; };
 		8259E49026D45C580091D524 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8259E48F26D45C580091D524 /* SceneDelegate.swift */; };
 		8259E49226D45C580091D524 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8259E49126D45C580091D524 /* ViewController.swift */; };
@@ -23,6 +25,14 @@
 		82D3592126D4647200499A42 /* SearchProductsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82D3592026D4647200499A42 /* SearchProductsService.swift */; };
 		82D3592326D466F000499A42 /* Product.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82D3592226D466F000499A42 /* Product.swift */; };
 		82D3592726D46D4700499A42 /* ProductsResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82D3592626D46D4700499A42 /* ProductsResult.swift */; };
+		82D54E6D26D7E66A00DE9E0A /* UIImage+Helper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82D54E6C26D7E66A00DE9E0A /* UIImage+Helper.swift */; };
+		82D54E7126D7EA0700DE9E0A /* words.txt in Resources */ = {isa = PBXBuildFile; fileRef = 82D54E7026D7EA0700DE9E0A /* words.txt */; };
+		82D54E7726D8068E00DE9E0A /* InferenceModule.mm in Sources */ = {isa = PBXBuildFile; fileRef = 82D54E7526D8068D00DE9E0A /* InferenceModule.mm */; };
+		82D54E7826D8068E00DE9E0A /* ObjectDetector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82D54E7626D8068D00DE9E0A /* ObjectDetector.swift */; };
+		82D54E7A26D807A500DE9E0A /* PrePostProcessor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82D54E7926D807A400DE9E0A /* PrePostProcessor.swift */; };
+		82D54E7C26D8409000DE9E0A /* weights-yolo.torchscript.pt in Resources */ = {isa = PBXBuildFile; fileRef = 82D54E7B26D8408C00DE9E0A /* weights-yolo.torchscript.pt */; };
+		82DF296A26D6F96A00E43BB1 /* UpdatePhotoResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82DF296926D6F96A00E43BB1 /* UpdatePhotoResult.swift */; };
+		9C765450BB59A6593EE516A2 /* libPods-SearchProduct.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3A12383D9D2288C0C4587400 /* libPods-SearchProduct.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -43,7 +53,12 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		331715BE7F5262958FBD1D76 /* Pods-SearchProduct.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SearchProduct.debug.xcconfig"; path = "Target Support Files/Pods-SearchProduct/Pods-SearchProduct.debug.xcconfig"; sourceTree = "<group>"; };
+		34466F3F1F66DDAFBC1DF8DF /* Pods-SearchProduct.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SearchProduct.release.xcconfig"; path = "Target Support Files/Pods-SearchProduct/Pods-SearchProduct.release.xcconfig"; sourceTree = "<group>"; };
+		3A12383D9D2288C0C4587400 /* libPods-SearchProduct.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-SearchProduct.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		824A180926D685F600E23F86 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		824A180B26D6ECCE00E23F86 /* TakePhotoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TakePhotoViewController.swift; sourceTree = "<group>"; };
+		824A180C26D6ECCE00E23F86 /* TakePhotoViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TakePhotoViewController.xib; sourceTree = "<group>"; };
 		8259E48A26D45C580091D524 /* SearchProduct.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SearchProduct.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8259E48D26D45C580091D524 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		8259E48F26D45C580091D524 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -65,6 +80,15 @@
 		82D3592026D4647200499A42 /* SearchProductsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchProductsService.swift; sourceTree = "<group>"; };
 		82D3592226D466F000499A42 /* Product.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Product.swift; sourceTree = "<group>"; };
 		82D3592626D46D4700499A42 /* ProductsResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductsResult.swift; sourceTree = "<group>"; };
+		82D54E6826D7E55900DE9E0A /* SearchProduct-Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "SearchProduct-Bridging-Header.h"; sourceTree = "<group>"; };
+		82D54E6C26D7E66A00DE9E0A /* UIImage+Helper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIImage+Helper.swift"; sourceTree = "<group>"; };
+		82D54E7026D7EA0700DE9E0A /* words.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = words.txt; sourceTree = "<group>"; };
+		82D54E7326D8068D00DE9E0A /* InferenceModule.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InferenceModule.h; sourceTree = "<group>"; };
+		82D54E7526D8068D00DE9E0A /* InferenceModule.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = InferenceModule.mm; sourceTree = "<group>"; };
+		82D54E7626D8068D00DE9E0A /* ObjectDetector.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ObjectDetector.swift; sourceTree = "<group>"; };
+		82D54E7926D807A400DE9E0A /* PrePostProcessor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PrePostProcessor.swift; sourceTree = "<group>"; };
+		82D54E7B26D8408C00DE9E0A /* weights-yolo.torchscript.pt */ = {isa = PBXFileReference; lastKnownFileType = file; path = "weights-yolo.torchscript.pt"; sourceTree = "<group>"; };
+		82DF296926D6F96A00E43BB1 /* UpdatePhotoResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdatePhotoResult.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -72,6 +96,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9C765450BB59A6593EE516A2 /* libPods-SearchProduct.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -92,6 +117,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		45282732A91992577E85EB00 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				331715BE7F5262958FBD1D76 /* Pods-SearchProduct.debug.xcconfig */,
+				34466F3F1F66DDAFBC1DF8DF /* Pods-SearchProduct.release.xcconfig */,
+			);
+			path = Pods;
+			sourceTree = "<group>";
+		};
 		8259E48126D45C570091D524 = {
 			isa = PBXGroup;
 			children = (
@@ -99,6 +133,8 @@
 				8259E4A326D45C5E0091D524 /* SearchProductTests */,
 				8259E4AE26D45C5E0091D524 /* SearchProductUITests */,
 				8259E48B26D45C580091D524 /* Products */,
+				45282732A91992577E85EB00 /* Pods */,
+				C9E1B2C79C577125E66C7B95 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -115,12 +151,20 @@
 		8259E48C26D45C580091D524 /* SearchProduct */ = {
 			isa = PBXGroup;
 			children = (
+				82D54E6826D7E55900DE9E0A /* SearchProduct-Bridging-Header.h */,
+				82D54E7226D8068D00DE9E0A /* Inference */,
+				82D54E6426D7E51500DE9E0A /* Model */,
 				8259E48D26D45C580091D524 /* AppDelegate.swift */,
 				8259E48F26D45C580091D524 /* SceneDelegate.swift */,
 				8259E49126D45C580091D524 /* ViewController.swift */,
 				8259E4BD26D460240091D524 /* ResultsViewController.swift */,
 				82D3592226D466F000499A42 /* Product.swift */,
 				82D3592626D46D4700499A42 /* ProductsResult.swift */,
+				82D54E7926D807A400DE9E0A /* PrePostProcessor.swift */,
+				82D54E6C26D7E66A00DE9E0A /* UIImage+Helper.swift */,
+				824A180B26D6ECCE00E23F86 /* TakePhotoViewController.swift */,
+				82DF296926D6F96A00E43BB1 /* UpdatePhotoResult.swift */,
+				824A180C26D6ECCE00E23F86 /* TakePhotoViewController.xib */,
 				82D3592026D4647200499A42 /* SearchProductsService.swift */,
 				8259E4C126D461050091D524 /* ResultTableViewCell.swift */,
 				8259E4C226D461050091D524 /* ResultTableViewCell.xib */,
@@ -152,6 +196,33 @@
 			path = SearchProductUITests;
 			sourceTree = "<group>";
 		};
+		82D54E6426D7E51500DE9E0A /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				82D54E7026D7EA0700DE9E0A /* words.txt */,
+				82D54E7B26D8408C00DE9E0A /* weights-yolo.torchscript.pt */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		82D54E7226D8068D00DE9E0A /* Inference */ = {
+			isa = PBXGroup;
+			children = (
+				82D54E7326D8068D00DE9E0A /* InferenceModule.h */,
+				82D54E7526D8068D00DE9E0A /* InferenceModule.mm */,
+				82D54E7626D8068D00DE9E0A /* ObjectDetector.swift */,
+			);
+			path = Inference;
+			sourceTree = "<group>";
+		};
+		C9E1B2C79C577125E66C7B95 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				3A12383D9D2288C0C4587400 /* libPods-SearchProduct.a */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -159,6 +230,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 8259E4B426D45C5E0091D524 /* Build configuration list for PBXNativeTarget "SearchProduct" */;
 			buildPhases = (
+				68702F4A27104F08096FF121 /* [CP] Check Pods Manifest.lock */,
 				8259E48626D45C580091D524 /* Sources */,
 				8259E48726D45C580091D524 /* Frameworks */,
 				8259E48826D45C580091D524 /* Resources */,
@@ -257,6 +329,9 @@
 			files = (
 				8259E4C426D461050091D524 /* ResultTableViewCell.xib in Resources */,
 				8259E49A26D45C5E0091D524 /* LaunchScreen.storyboard in Resources */,
+				82D54E7C26D8409000DE9E0A /* weights-yolo.torchscript.pt in Resources */,
+				82D54E7126D7EA0700DE9E0A /* words.txt in Resources */,
+				824A180E26D6ECCF00E23F86 /* TakePhotoViewController.xib in Resources */,
 				8259E49726D45C5E0091D524 /* Assets.xcassets in Resources */,
 				8259E49526D45C580091D524 /* Main.storyboard in Resources */,
 				8259E4C026D460240091D524 /* ResultsViewController.xib in Resources */,
@@ -279,19 +354,50 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		68702F4A27104F08096FF121 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-SearchProduct-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		8259E48626D45C580091D524 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 				8259E49226D45C580091D524 /* ViewController.swift in Sources */,
+				82D54E7726D8068E00DE9E0A /* InferenceModule.mm in Sources */,
 				8259E48E26D45C580091D524 /* AppDelegate.swift in Sources */,
 				8259E49026D45C580091D524 /* SceneDelegate.swift in Sources */,
 				8259E4C326D461050091D524 /* ResultTableViewCell.swift in Sources */,
+				824A180D26D6ECCF00E23F86 /* TakePhotoViewController.swift in Sources */,
+				82DF296A26D6F96A00E43BB1 /* UpdatePhotoResult.swift in Sources */,
 				8259E4BF26D460240091D524 /* ResultsViewController.swift in Sources */,
+				82D54E7826D8068E00DE9E0A /* ObjectDetector.swift in Sources */,
 				82D3592726D46D4700499A42 /* ProductsResult.swift in Sources */,
 				82D3592126D4647200499A42 /* SearchProductsService.swift in Sources */,
+				82D54E6D26D7E66A00DE9E0A /* UIImage+Helper.swift in Sources */,
 				82D3592326D466F000499A42 /* Product.swift in Sources */,
+				82D54E7A26D807A500DE9E0A /* PrePostProcessor.swift in Sources */,
 				824A180A26D685F600E23F86 /* Constants.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -382,6 +488,7 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_BITCODE = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
@@ -404,6 +511,7 @@
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OBJC_BRIDGING_HEADER = "SearchProduct/TorchBridge/SearchProduct-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
 			name = Debug;
@@ -443,6 +551,7 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_BITCODE = NO;
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
@@ -458,6 +567,7 @@
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
 				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OBJC_BRIDGING_HEADER = "SearchProduct/TorchBridge/SearchProduct-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-O";
 				VALIDATE_PRODUCT = YES;
 			};
@@ -465,6 +575,7 @@
 		};
 		8259E4B526D45C5E0091D524 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 331715BE7F5262958FBD1D76 /* Pods-SearchProduct.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -477,6 +588,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = mariaagustinamarkosich.SearchProduct;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "SearchProduct/SearchProduct-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -484,6 +596,7 @@
 		};
 		8259E4B626D45C5E0091D524 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 34466F3F1F66DDAFBC1DF8DF /* Pods-SearchProduct.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -496,6 +609,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = mariaagustinamarkosich.SearchProduct;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "SearchProduct/SearchProduct-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};

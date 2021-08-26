@@ -16,9 +16,8 @@ class ViewController: UIViewController {
     }
 
     @IBAction func takePhotoButtonPressed(_ sender: UIButton) {
-        //TODO: take photo
-        let resultsViewController = ResultsViewController(nibName: "ResultsViewController", bundle: nil)
-        self.navigationController?.pushViewController(resultsViewController, animated: true)
+        let takePhotoViewController = TakePhotoViewController(nibName: "TakePhotoViewController", bundle: nil)
+        self.navigationController?.pushViewController(takePhotoViewController, animated: true)
     }
     
 }

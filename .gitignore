@@ -46,3 +46,4 @@ build/
 .idea/
 
 SearchProduct/Constants.swift
+Pods/

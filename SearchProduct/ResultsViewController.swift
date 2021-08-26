@@ -25,7 +25,6 @@ class ResultsViewController: UIViewController {
     func searchProducts(){
         let activityIndicator = UIActivityIndicatorView()
         activityIndicator.startAnimating()
-        self.product = "mochila" //TODO
         guard let product = self.product else{
             return
         }
