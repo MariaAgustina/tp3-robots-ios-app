@@ -22,6 +22,9 @@
 		8259E4C026D460240091D524 /* ResultsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8259E4BE26D460240091D524 /* ResultsViewController.xib */; };
 		8259E4C326D461050091D524 /* ResultTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8259E4C126D461050091D524 /* ResultTableViewCell.swift */; };
 		8259E4C426D461050091D524 /* ResultTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8259E4C226D461050091D524 /* ResultTableViewCell.xib */; };
+		82830E1D26D955CB0078B9F7 /* ProductImageService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82830E1C26D955CB0078B9F7 /* ProductImageService.swift */; };
+		82830E1F26D95A8C0078B9F7 /* ProductWithImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82830E1E26D95A8C0078B9F7 /* ProductWithImage.swift */; };
+		82830E2126D964700078B9F7 /* ClassTranslator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82830E2026D964700078B9F7 /* ClassTranslator.swift */; };
 		82D3592126D4647200499A42 /* SearchProductsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82D3592026D4647200499A42 /* SearchProductsService.swift */; };
 		82D3592326D466F000499A42 /* Product.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82D3592226D466F000499A42 /* Product.swift */; };
 		82D3592726D46D4700499A42 /* ProductsResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82D3592626D46D4700499A42 /* ProductsResult.swift */; };
@@ -77,6 +80,9 @@
 		8259E4BE26D460240091D524 /* ResultsViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ResultsViewController.xib; sourceTree = "<group>"; };
 		8259E4C126D461050091D524 /* ResultTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultTableViewCell.swift; sourceTree = "<group>"; };
 		8259E4C226D461050091D524 /* ResultTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ResultTableViewCell.xib; sourceTree = "<group>"; };
+		82830E1C26D955CB0078B9F7 /* ProductImageService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductImageService.swift; sourceTree = "<group>"; };
+		82830E1E26D95A8C0078B9F7 /* ProductWithImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductWithImage.swift; sourceTree = "<group>"; };
+		82830E2026D964700078B9F7 /* ClassTranslator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClassTranslator.swift; sourceTree = "<group>"; };
 		82D3592026D4647200499A42 /* SearchProductsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchProductsService.swift; sourceTree = "<group>"; };
 		82D3592226D466F000499A42 /* Product.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Product.swift; sourceTree = "<group>"; };
 		82D3592626D46D4700499A42 /* ProductsResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductsResult.swift; sourceTree = "<group>"; };
@@ -159,10 +165,13 @@
 				8259E49126D45C580091D524 /* ViewController.swift */,
 				8259E4BD26D460240091D524 /* ResultsViewController.swift */,
 				82D3592226D466F000499A42 /* Product.swift */,
+				82830E1E26D95A8C0078B9F7 /* ProductWithImage.swift */,
 				82D3592626D46D4700499A42 /* ProductsResult.swift */,
 				82D54E7926D807A400DE9E0A /* PrePostProcessor.swift */,
 				82D54E6C26D7E66A00DE9E0A /* UIImage+Helper.swift */,
 				824A180B26D6ECCE00E23F86 /* TakePhotoViewController.swift */,
+				82830E2026D964700078B9F7 /* ClassTranslator.swift */,
+				82830E1C26D955CB0078B9F7 /* ProductImageService.swift */,
 				82DF296926D6F96A00E43BB1 /* UpdatePhotoResult.swift */,
 				824A180C26D6ECCE00E23F86 /* TakePhotoViewController.xib */,
 				82D3592026D4647200499A42 /* SearchProductsService.swift */,
@@ -390,12 +399,15 @@
 				8259E49026D45C580091D524 /* SceneDelegate.swift in Sources */,
 				8259E4C326D461050091D524 /* ResultTableViewCell.swift in Sources */,
 				824A180D26D6ECCF00E23F86 /* TakePhotoViewController.swift in Sources */,
+				82830E2126D964700078B9F7 /* ClassTranslator.swift in Sources */,
 				82DF296A26D6F96A00E43BB1 /* UpdatePhotoResult.swift in Sources */,
 				8259E4BF26D460240091D524 /* ResultsViewController.swift in Sources */,
 				82D54E7826D8068E00DE9E0A /* ObjectDetector.swift in Sources */,
+				82830E1D26D955CB0078B9F7 /* ProductImageService.swift in Sources */,
 				82D3592726D46D4700499A42 /* ProductsResult.swift in Sources */,
 				82D3592126D4647200499A42 /* SearchProductsService.swift in Sources */,
 				82D54E6D26D7E66A00DE9E0A /* UIImage+Helper.swift in Sources */,
+				82830E1F26D95A8C0078B9F7 /* ProductWithImage.swift in Sources */,
 				82D3592326D466F000499A42 /* Product.swift in Sources */,
 				82D54E7A26D807A500DE9E0A /* PrePostProcessor.swift in Sources */,
 				824A180A26D685F600E23F86 /* Constants.swift in Sources */,

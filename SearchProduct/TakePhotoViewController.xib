@@ -10,6 +10,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="TakePhotoViewController" customModule="SearchProduct" customModuleProvider="target">
             <connections>
+                <outlet property="searchProductsButton" destination="cD3-81-Tql" id="CTT-uU-PWL"/>
                 <outlet property="takePhotoImageView" destination="FJt-0K-zD4" id="43e-nG-Kio"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
@@ -38,7 +39,7 @@
                 </button>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cD3-81-Tql">
                     <rect key="frame" x="20" y="799" width="374" height="48"/>
-                    <color key="backgroundColor" systemColor="systemIndigoColor"/>
+                    <color key="backgroundColor" red="0.34509803919999998" green="0.33725490200000002" blue="0.83921568629999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="48" id="Uii-yM-her"/>
                     </constraints>
@@ -46,8 +47,26 @@
                     <state key="normal" title="Buscar productos">
                         <color key="titleColor" systemColor="systemBackgroundColor"/>
                     </state>
+                    <state key="disabled">
+                        <color key="titleShadowColor" systemColor="opaqueSeparatorColor"/>
+                    </state>
                     <connections>
                         <action selector="searchProductsButtonPressed:" destination="-1" eventType="touchUpInside" id="MOz-4n-kN3"/>
+                    </connections>
+                </button>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jej-bu-O1G">
+                    <rect key="frame" x="20" y="655" width="374" height="48"/>
+                    <color key="backgroundColor" systemColor="systemIndigoColor"/>
+                    <constraints>
+                        <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="48" id="O4u-ig-bfu"/>
+                        <constraint firstAttribute="height" constant="48" id="cBP-EK-Opf"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="system" pointSize="24"/>
+                    <state key="normal" title="Subir una foto">
+                        <color key="titleColor" systemColor="systemBackgroundColor"/>
+                    </state>
+                    <connections>
+                        <action selector="uploadPhotoButtonPressed:" destination="-1" eventType="touchUpInside" id="Pou-P1-fbk"/>
                     </connections>
                 </button>
             </subviews>
@@ -59,9 +78,12 @@
                 <constraint firstItem="FJt-0K-zD4" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="B66-Zh-EWy"/>
                 <constraint firstItem="FJt-0K-zD4" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="DNl-c1-go8"/>
                 <constraint firstAttribute="bottom" secondItem="FJt-0K-zD4" secondAttribute="bottom" id="GO2-Cp-TCf"/>
+                <constraint firstItem="Mti-Sv-tQa" firstAttribute="top" secondItem="jej-bu-O1G" secondAttribute="bottom" constant="24" id="GvH-Oo-FPR"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="Mti-Sv-tQa" secondAttribute="trailing" constant="20" id="YL1-fZ-D3W"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="cD3-81-Tql" secondAttribute="bottom" constant="15" id="Zcz-mL-eZd"/>
                 <constraint firstItem="cD3-81-Tql" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="20" id="ZpS-Qz-j5G"/>
+                <constraint firstItem="jej-bu-O1G" firstAttribute="trailing" secondItem="Mti-Sv-tQa" secondAttribute="trailing" id="acN-BM-DZQ"/>
+                <constraint firstItem="jej-bu-O1G" firstAttribute="leading" secondItem="Mti-Sv-tQa" secondAttribute="leading" id="mcU-qM-bEk"/>
                 <constraint firstItem="Mti-Sv-tQa" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="20" id="oh2-0N-mTe"/>
                 <constraint firstItem="FJt-0K-zD4" firstAttribute="trailing" secondItem="fnl-2z-Ty3" secondAttribute="trailing" id="ucj-zu-33N"/>
             </constraints>
@@ -69,6 +91,9 @@
         </view>
     </objects>
     <resources>
+        <systemColor name="opaqueSeparatorColor">
+            <color red="0.77647058823529413" green="0.77647058823529413" blue="0.78431372549019607" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>

@@ -9,6 +9,8 @@ import Foundation
 
 struct Product : Codable {
     var thumbnail: String?
+    var permalink : String?
     var title: String?
     var price: Double?
+    var id: String
 }
