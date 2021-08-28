@@ -15,7 +15,8 @@ class TakePhotoViewController: UIViewController, UINavigationControllerDelegate 
     var image: UIImage?
     var imagePicker: UIImagePickerController!
     private var inferencer = ObjectDetector()
-    
+    private var mateInferencer = ObjectMateDetector()
+
     var productsWithImage : [ProductWithImage]?
     var productsResult : ProductsResult?
     var productToSearch : String?
@@ -120,25 +121,51 @@ extension TakePhotoViewController: UIImagePickerControllerDelegate{
             return
         }
         
+        //predict mate
         DispatchQueue.global().async {
-            guard let outputs = self.inferencer.module.detect(image: &pixelBuffer) else {
+            guard let outputsMate = self.mateInferencer.module.detect(image: &pixelBuffer,outputSize: ObjectMateDetector.output_size) else {
                 return
             }
-            
-            let nmsPredictions = PrePostProcessor.outputsToNMSPredictions(outputs: outputs, imgScaleX: imgScaleX, imgScaleY: imgScaleY, ivScaleX: ivScaleX, ivScaleY: ivScaleY, startX: startX, startY: startY)
+
+            let nmsPredictions = PrePostProcessor.outputsToNMSPredictions(outputs: outputsMate,outputColumn: ObjectMateDetector.columns, imgScaleX: imgScaleX, imgScaleY: imgScaleY, ivScaleX: ivScaleX, ivScaleY: ivScaleY, startX: startX, startY: startY)
             for prediction in nmsPredictions {
-                print("Prediccion = Clase: " +  self.inferencer.classes[prediction.classIndex] + " Confianza: " + String(prediction.score))
+                print("Prediccion = Clase: " +  self.mateInferencer.classes[prediction.classIndex] + " Confianza: " + String(prediction.score))
             }
 
-            DispatchQueue.main.async {
-                PrePostProcessor.showDetection(imageView: self.takePhotoImageView, nmsPredictions: nmsPredictions, classes: self.inferencer.classes)
-                if let classIndex = nmsPredictions.first?.classIndex{
-                    let word = self.inferencer.classes[classIndex]
-                    self.productToSearch = ClassTranslator.translate(word: word)
-                    self.searchProductsButton.isEnabled = true
-                    self.searchProductsButton.setTitle("Buscar " + (self.productToSearch ?? ""), for: .normal)
+            if nmsPredictions.count > 0 {
+                DispatchQueue.main.async {
+                    PrePostProcessor.showDetection(imageView: self.takePhotoImageView, nmsPredictions: nmsPredictions, classes: self.mateInferencer.classes)
+                    if let classIndex = nmsPredictions.first?.classIndex{
+                        let word = self.mateInferencer.classes[classIndex]
+                        self.productToSearch = ClassTranslator.translate(word: word)
+                        self.searchProductsButton.isEnabled = true
+                        self.searchProductsButton.setTitle("Buscar " + (self.productToSearch ?? ""), for: .normal)
+                    }
+
                 }
-                
+            }else{
+                print("No mates found, predicting other objects")
+//                //Predict other objects
+                DispatchQueue.global().async {
+                    guard let outputs = self.inferencer.module.detect(image: &pixelBuffer,outputSize: ObjectDetector.output_size) else {
+                        return
+                    }
+
+                    let nmsPredictions = PrePostProcessor.outputsToNMSPredictions(outputs: outputs, outputColumn: ObjectDetector.columns, imgScaleX: imgScaleX, imgScaleY: imgScaleY, ivScaleX: ivScaleX, ivScaleY: ivScaleY, startX: startX, startY: startY)
+                    for prediction in nmsPredictions {
+                        print("Prediccion = Clase: " +  self.inferencer.classes[prediction.classIndex] + " Confianza: " + String(prediction.score))
+                    }
+
+                    DispatchQueue.main.async {
+                        PrePostProcessor.showDetection(imageView: self.takePhotoImageView, nmsPredictions: nmsPredictions, classes: self.inferencer.classes)
+                        if let classIndex = nmsPredictions.first?.classIndex{
+                            let word = self.inferencer.classes[classIndex]
+                            self.productToSearch = ClassTranslator.translate(word: word)
+                            self.searchProductsButton.isEnabled = true
+                            self.searchProductsButton.setTitle("Buscar " + (self.productToSearch ?? ""), for: .normal)
+                        }
+                    }
+                }
             }
         }
     }

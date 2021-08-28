@@ -10,7 +10,7 @@
 // 640x640 is the default image size used in the export.py in the yolov5 repo to export the TorchScript model, 25200*85 is the model output size
 const int input_width = 640;
 const int input_height = 640;
-const int output_size = 25200*85;
+//const int output_size = 25200*85;
 
 
 @implementation InferenceModule {
@@ -31,7 +31,7 @@ const int output_size = 25200*85;
     return self;
 }
 
-- (NSArray<NSNumber*>*)detectImage:(void*)imageBuffer {
+- (NSArray<NSNumber*>*)detectImage:(void*)imageBuffer outputSize:(NSInteger)outputSize {
     try {
         at::Tensor tensor = torch::from_blob(imageBuffer, { 1, 3, input_width, input_height }, at::kFloat);
         torch::autograd::AutoGradMode guard(false);
@@ -46,7 +46,7 @@ const int output_size = 25200*85;
         }
         
         NSMutableArray* results = [[NSMutableArray alloc] init];
-        for (int i = 0; i < output_size; i++) {
+        for (int i = 0; i < outputSize; i++) {
           [results addObject:@(floatBuffer[i])];
         }
         return [results copy];

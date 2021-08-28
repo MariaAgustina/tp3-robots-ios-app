@@ -19,7 +19,6 @@ class PrePostProcessor : NSObject {
 
     // model output is of size 25200*85
     static let outputRow = 25200 // as decided by the YOLOv5 model for input image of size 640*640
-    static let outputColumn = 85 // left, top, right, bottom, score and 80 class probability
     static let threshold : Float = 0.35 // score above which a detection is generated
     static let nmsLimit = 15 // max number of detections
     
@@ -86,7 +85,7 @@ class PrePostProcessor : NSObject {
       return Float(intersectionArea / (areaA + areaB - intersectionArea))
     }
 
-    static func outputsToNMSPredictions(outputs: [NSNumber], imgScaleX: Double, imgScaleY: Double, ivScaleX: Double, ivScaleY: Double, startX: Double, startY: Double) -> [Prediction] {
+    static func outputsToNMSPredictions(outputs: [NSNumber],outputColumn:NSInteger, imgScaleX: Double, imgScaleY: Double, ivScaleX: Double, ivScaleY: Double, startX: Double, startY: Double) -> [Prediction] {
         var predictions = [Prediction]()
         for i in 0..<outputRow {
             if Float(truncating: outputs[i*outputColumn+4]) > threshold {
@@ -111,7 +110,7 @@ class PrePostProcessor : NSObject {
 
                 let rect = CGRect(x: startX+ivScaleX*left, y: startY+top*ivScaleY, width: ivScaleX*(right-left), height: ivScaleY*(bottom-top))
                 
-                let prediction = Prediction(classIndex: cls, score: Float(truncating: outputs[i*85+4]), rect: rect)
+                let prediction = Prediction(classIndex: cls, score: Float(truncating: outputs[i*outputColumn+4]), rect: rect)
                 predictions.append(prediction)
             }
         }

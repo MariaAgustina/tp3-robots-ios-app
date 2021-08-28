@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		824330B526DA77B300560496 /* words-mate.txt in Resources */ = {isa = PBXBuildFile; fileRef = 824330B426DA77B300560496 /* words-mate.txt */; };
+		824330BB26DA78E400560496 /* ObjectMateDetector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 824330BA26DA78E400560496 /* ObjectMateDetector.swift */; };
+		824330BF26DA83BE00560496 /* weights.torchscript.pt in Resources */ = {isa = PBXBuildFile; fileRef = 824330BE26DA83BE00560496 /* weights.torchscript.pt */; };
 		824A180A26D685F600E23F86 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 824A180926D685F600E23F86 /* Constants.swift */; };
 		824A180D26D6ECCF00E23F86 /* TakePhotoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 824A180B26D6ECCE00E23F86 /* TakePhotoViewController.swift */; };
 		824A180E26D6ECCF00E23F86 /* TakePhotoViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 824A180C26D6ECCE00E23F86 /* TakePhotoViewController.xib */; };
@@ -59,6 +62,9 @@
 		331715BE7F5262958FBD1D76 /* Pods-SearchProduct.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SearchProduct.debug.xcconfig"; path = "Target Support Files/Pods-SearchProduct/Pods-SearchProduct.debug.xcconfig"; sourceTree = "<group>"; };
 		34466F3F1F66DDAFBC1DF8DF /* Pods-SearchProduct.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SearchProduct.release.xcconfig"; path = "Target Support Files/Pods-SearchProduct/Pods-SearchProduct.release.xcconfig"; sourceTree = "<group>"; };
 		3A12383D9D2288C0C4587400 /* libPods-SearchProduct.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-SearchProduct.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		824330B426DA77B300560496 /* words-mate.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "words-mate.txt"; sourceTree = "<group>"; };
+		824330BA26DA78E400560496 /* ObjectMateDetector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectMateDetector.swift; sourceTree = "<group>"; };
+		824330BE26DA83BE00560496 /* weights.torchscript.pt */ = {isa = PBXFileReference; lastKnownFileType = file; path = weights.torchscript.pt; sourceTree = "<group>"; };
 		824A180926D685F600E23F86 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		824A180B26D6ECCE00E23F86 /* TakePhotoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TakePhotoViewController.swift; sourceTree = "<group>"; };
 		824A180C26D6ECCE00E23F86 /* TakePhotoViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TakePhotoViewController.xib; sourceTree = "<group>"; };
@@ -210,6 +216,8 @@
 			children = (
 				82D54E7026D7EA0700DE9E0A /* words.txt */,
 				82D54E7B26D8408C00DE9E0A /* weights-yolo.torchscript.pt */,
+				824330B426DA77B300560496 /* words-mate.txt */,
+				824330BE26DA83BE00560496 /* weights.torchscript.pt */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -220,6 +228,7 @@
 				82D54E7326D8068D00DE9E0A /* InferenceModule.h */,
 				82D54E7526D8068D00DE9E0A /* InferenceModule.mm */,
 				82D54E7626D8068D00DE9E0A /* ObjectDetector.swift */,
+				824330BA26DA78E400560496 /* ObjectMateDetector.swift */,
 			);
 			path = Inference;
 			sourceTree = "<group>";
@@ -343,6 +352,8 @@
 				824A180E26D6ECCF00E23F86 /* TakePhotoViewController.xib in Resources */,
 				8259E49726D45C5E0091D524 /* Assets.xcassets in Resources */,
 				8259E49526D45C580091D524 /* Main.storyboard in Resources */,
+				824330B526DA77B300560496 /* words-mate.txt in Resources */,
+				824330BF26DA83BE00560496 /* weights.torchscript.pt in Resources */,
 				8259E4C026D460240091D524 /* ResultsViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -402,6 +413,7 @@
 				82830E2126D964700078B9F7 /* ClassTranslator.swift in Sources */,
 				82DF296A26D6F96A00E43BB1 /* UpdatePhotoResult.swift in Sources */,
 				8259E4BF26D460240091D524 /* ResultsViewController.swift in Sources */,
+				824330BB26DA78E400560496 /* ObjectMateDetector.swift in Sources */,
 				82D54E7826D8068E00DE9E0A /* ObjectDetector.swift in Sources */,
 				82830E1D26D955CB0078B9F7 /* ProductImageService.swift in Sources */,
 				82D3592726D46D4700499A42 /* ProductsResult.swift in Sources */,
