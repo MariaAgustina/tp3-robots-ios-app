@@ -21,13 +21,16 @@ class TakePhotoViewController: UIViewController, UINavigationControllerDelegate 
     var productsResult : ProductsResult?
     var productToSearch : String?
     var activityIndicatorView : UIActivityIndicatorView?
+    var materialToSearch : String?
 
     override func viewDidLoad() {
         super.viewDidLoad()
         self.productsWithImage = []
         self.searchProductsButton.isEnabled = false
 
-        self.activityIndicatorView = UIActivityIndicatorView()
+        self.activityIndicatorView = UIActivityIndicatorView(frame: CGRect(x: 100 ,y: 200, width: 50, height: 50)) as UIActivityIndicatorView
+        activityIndicatorView?.center = self.view.center
+        self.view.addSubview(activityIndicatorView!)
         activityIndicatorView?.style = .large
         activityIndicatorView?.color = .white
 
@@ -39,6 +42,7 @@ class TakePhotoViewController: UIViewController, UINavigationControllerDelegate 
     }
 
     @IBAction func takePhotoButtonPressed(_ sender: UIButton) {
+        
         imagePicker =  UIImagePickerController()
         imagePicker.delegate = self
         imagePicker.sourceType = .camera
@@ -77,7 +81,6 @@ class TakePhotoViewController: UIViewController, UINavigationControllerDelegate 
                 }
             }
             dispatchGroup.notify(queue: .main, execute: {
-                self.activityIndicatorView?.stopAnimating()
                 if self.productsResult?.results == nil {
                     let errorViewController = ErrorViewControllerFactory.createErrorViewControllerWithMessage(message: "No se encontraron productos en la busqueda, revise la autenticacion")
                     self.navigationController?.pushViewController(errorViewController, animated: true)
@@ -99,18 +102,14 @@ class TakePhotoViewController: UIViewController, UINavigationControllerDelegate 
         let productToCompare = ProductWithImage(withImage: self.takePhotoImageView.image!.pngData()!, andId: "input_product")
         self.productsWithImage?.append(productToCompare)
         similarImageService.getMostSimilarImage(productsWithImage:self.productsWithImage ?? [], successBlock:{ productsSimilarities in
+            self.activityIndicatorView?.stopAnimating()
             self.saveImagesSimilaritiesIfNeeded(productSimilarities: productsSimilarities)
             let productFoundId = productsSimilarities.first?.similar_pi //similarities of products are in order
             let productResult = self.productsResult?.results?.filter{ $0.id == productFoundId }.first
             if let url = URL(string: productResult?.permalink ?? ""){
                 UIApplication.shared.open(url)
-            }else{
-                let errorViewController = ErrorViewControllerFactory.createErrorViewControllerWithMessage(message: "Hubo un error con el link a la imagen")
-                self.navigationController?.pushViewController(errorViewController, animated: true)
             }
         },errorBlock:{
-            let errorViewController = ErrorViewControllerFactory.createErrorViewControllerWithMessage(message: "Hubo un error con el link a la imagen")
-            self.navigationController?.pushViewController(errorViewController, animated: true)
         })
     }
     
@@ -137,7 +136,7 @@ class TakePhotoViewController: UIViewController, UINavigationControllerDelegate 
             
             let productId : String = product.id
             let similarity : String = String(productSimilarities.filter{ $0.similar_pi == productId }.first?.similarity ?? 0)
-            let suffix_file  : String = productId + "_similarity_" + similarity + ".png"
+            let suffix_file  : String = similarity + "_" + productId + ".png"
             let filePath : String = documentsPath as! String + "/" + suffix_file
             do {
                 try pngData.write(toFile: filePath, options: .withoutOverwriting)
@@ -169,6 +168,13 @@ class TakePhotoViewController: UIViewController, UINavigationControllerDelegate 
 
 extension TakePhotoViewController: UIImagePickerControllerDelegate{
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        self.materialToSearch = ""
+        for subview in self.takePhotoImageView.subviews{
+            subview.removeFromSuperview()
+        }
+        
+        self.takePhotoImageView.layer.sublayers?.forEach { $0.removeFromSuperlayer() }
+        
         imagePicker.dismiss(animated: true, completion: nil)
         
         image = info[UIImagePickerController.InfoKey.originalImage] as? UIImage
@@ -199,6 +205,10 @@ extension TakePhotoViewController: UIImagePickerControllerDelegate{
             let nmsPredictions = PrePostProcessor.outputsToNMSPredictions(outputs: outputsMate,outputColumn: ObjectMateDetector.columns, imgScaleX: imgScaleX, imgScaleY: imgScaleY, ivScaleX: ivScaleX, ivScaleY: ivScaleY, startX: startX, startY: startY)
             for prediction in nmsPredictions {
                 print("Prediccion = Clase: " +  self.mateInferencer.classes[prediction.classIndex] + " Confianza: " + String(prediction.score))
+                let posibleMaterial = self.mateInferencer.classes[prediction.classIndex]
+                if(posibleMaterial == "calabaza" || posibleMaterial == "metal" || posibleMaterial == "plastico" || posibleMaterial == "madera"){
+                    self.materialToSearch = posibleMaterial
+                }
             }
 
             if nmsPredictions.count > 0 {
@@ -208,6 +218,9 @@ extension TakePhotoViewController: UIImagePickerControllerDelegate{
                         let word = self.mateInferencer.classes[classIndex]
                         self.productToSearch = ClassTranslator.translate(word: word)
                         self.searchProductsButton.isEnabled = true
+                        if(self.materialToSearch != ""){
+                            self.productToSearch = "mate " + (self.materialToSearch ?? "")
+                        }
                         self.searchProductsButton.setTitle("Buscar " + (self.productToSearch ?? ""), for: .normal)
                         self.saveImageResultIfNeeded()
                     }

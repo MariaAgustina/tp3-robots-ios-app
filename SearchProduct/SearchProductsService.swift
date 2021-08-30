@@ -10,8 +10,7 @@ import UIKit
 class SearchProductsService: NSObject {
     
     func searchProduct(product: String, successBlock: @escaping ((ProductsResult)->()), errorBlock: @escaping (()->())){
-        
-        let urlString = String(format: "https://api.mercadolibre.com/sites/MLA/search?q=%@", product)
+        let urlString = String(format: "https://api.mercadolibre.com/sites/MLA/search?q=%@", product.replacingOccurrences(of: " ", with: "%20"))
         var request = URLRequest(url: URL(string: urlString)!)
         request.setValue(Constants.accessToken, forHTTPHeaderField: "Authorization")
         
