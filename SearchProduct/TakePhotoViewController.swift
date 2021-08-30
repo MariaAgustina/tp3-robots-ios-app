@@ -20,12 +20,22 @@ class TakePhotoViewController: UIViewController, UINavigationControllerDelegate 
     var productsWithImage : [ProductWithImage]?
     var productsResult : ProductsResult?
     var productToSearch : String?
+    var activityIndicatorView : UIActivityIndicatorView?
 
     override func viewDidLoad() {
         super.viewDidLoad()
         self.productsWithImage = []
         self.searchProductsButton.isEnabled = false
 
+        self.activityIndicatorView = UIActivityIndicatorView()
+        activityIndicatorView?.style = .large
+        activityIndicatorView?.color = .white
+
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
     }
 
     @IBAction func takePhotoButtonPressed(_ sender: UIButton) {
@@ -47,7 +57,7 @@ class TakePhotoViewController: UIViewController, UINavigationControllerDelegate 
     
     func searchProduct(product: String){
         let searchProductService = SearchProductsService()
-        //TODO: show loading
+        self.activityIndicatorView?.startAnimating()
         searchProductService.searchProduct(product: product) { productsResult in
             self.productsResult = productsResult
             let dispatchGroup = DispatchGroup()
@@ -57,31 +67,51 @@ class TakePhotoViewController: UIViewController, UINavigationControllerDelegate 
                     dispatchGroup.enter()
                     productImageService.getImage(url: product.thumbnail ?? "") { [weak self] image in
                         guard let strongSelf = self else { return }
-                        let productWithImage = ProductWithImage(withImage: image, andId: product.id)
+                        let productWithImage = ProductWithImage(withImage: image.pngData()!, andId: product.id)
                         strongSelf.productsWithImage?.append(productWithImage)
                         dispatchGroup.leave()
                     } errorBlock: {
-                        //TODO
+                        let errorViewController = ErrorViewControllerFactory.createErrorViewControllerWithMessage(message: "No se encontraron productos en la busqueda, revise la autenticacion")
+                        self.navigationController?.pushViewController(errorViewController, animated: true)
                     }
                 }
             }
             dispatchGroup.notify(queue: .main, execute: {
-                //TODO: buscar la imagen mas parecida dentro de productsWithImage, luego deberiamos obtener el string de la url del array de resultados, por ahora agarramos solo el primero
-                let productFoundId = self.productsWithImage?.first?.id
-                let productResult = self.productsResult?.results?.filter{ $0.id == productFoundId }.first
-                if let url = URL(string: productResult?.permalink ?? ""){
-                    UIApplication.shared.open(url)
-                }else{
-                    //TODO: ERROR NO ENCONTRO EL LINK
+                self.activityIndicatorView?.stopAnimating()
+                if self.productsResult?.results == nil {
+                    let errorViewController = ErrorViewControllerFactory.createErrorViewControllerWithMessage(message: "No se encontraron productos en la busqueda, revise la autenticacion")
+                    self.navigationController?.pushViewController(errorViewController, animated: true)
+
                 }
+                self.getSimilarImage()
             })
             
         } errorBlock: {
-            //TODO
+            self.activityIndicatorView?.stopAnimating()
+            let errorViewController = ErrorViewControllerFactory.createErrorViewControllerWithMessage(message: "Parece que hubo un error de conexion")
+            self.navigationController?.pushViewController(errorViewController, animated: true)
         }
 
-
-
+    }
+    
+    func getSimilarImage(){
+        let similarImageService = SimilarImageService()
+        let productToCompare = ProductWithImage(withImage: self.takePhotoImageView.image!.pngData()!, andId: "input_product")
+        self.productsWithImage?.append(productToCompare)
+        similarImageService.getMostSimilarImage(productsWithImage:self.productsWithImage ?? [], successBlock:{ productsSimilarities in
+            self.saveImagesSimilaritiesIfNeeded(productSimilarities: productsSimilarities)
+            let productFoundId = productsSimilarities.first?.similar_pi //similarities of products are in order
+            let productResult = self.productsResult?.results?.filter{ $0.id == productFoundId }.first
+            if let url = URL(string: productResult?.permalink ?? ""){
+                UIApplication.shared.open(url)
+            }else{
+                let errorViewController = ErrorViewControllerFactory.createErrorViewControllerWithMessage(message: "Hubo un error con el link a la imagen")
+                self.navigationController?.pushViewController(errorViewController, animated: true)
+            }
+        },errorBlock:{
+            let errorViewController = ErrorViewControllerFactory.createErrorViewControllerWithMessage(message: "Hubo un error con el link a la imagen")
+            self.navigationController?.pushViewController(errorViewController, animated: true)
+        })
     }
     
     
@@ -94,6 +124,45 @@ class TakePhotoViewController: UIViewController, UINavigationControllerDelegate 
         
         searchProduct(product: productToSearch)
         
+    }
+    
+    func saveImagesSimilaritiesIfNeeded(productSimilarities:[ProductSimilarity]){
+        guard DebugOptions.shared.shouldDebug else { return }
+        guard let productsWithImage = self.productsWithImage else { return }
+        for product in productsWithImage {
+            let pngData: NSData = product.image as NSData
+            
+            let paths: NSArray = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true) as NSArray
+            let documentsPath = paths.firstObject
+            
+            let productId : String = product.id
+            let similarity : String = String(productSimilarities.filter{ $0.similar_pi == productId }.first?.similarity ?? 0)
+            let suffix_file  : String = productId + "_similarity_" + similarity + ".png"
+            let filePath : String = documentsPath as! String + "/" + suffix_file
+            do {
+                try pngData.write(toFile: filePath, options: .withoutOverwriting)
+            }catch{
+                print("Unexpected error saving image: \(error).")
+            }
+        }
+    }
+    
+    func saveImageResultIfNeeded(){
+        guard DebugOptions.shared.shouldDebug else { return }
+        let renderer = UIGraphicsImageRenderer(size: takePhotoImageView.bounds.size)
+        let imageWithLayers : UIImage = renderer.image { ctx in
+            takePhotoImageView.drawHierarchy(in: takePhotoImageView.bounds, afterScreenUpdates: true)
+        }
+        let pngData: NSData = imageWithLayers.pngData()! as NSData
+        
+        let paths: NSArray = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true) as NSArray
+        let documentsPath = paths.firstObject
+        let filePath : String = documentsPath as! String + "/result.png"
+        do {
+            try pngData.write(toFile: filePath, options: .withoutOverwriting)
+        }catch{
+            print("Unexpected error saving image: \(error).")
+        }
     }
     
 }
@@ -140,6 +209,7 @@ extension TakePhotoViewController: UIImagePickerControllerDelegate{
                         self.productToSearch = ClassTranslator.translate(word: word)
                         self.searchProductsButton.isEnabled = true
                         self.searchProductsButton.setTitle("Buscar " + (self.productToSearch ?? ""), for: .normal)
+                        self.saveImageResultIfNeeded()
                     }
 
                 }
@@ -152,17 +222,27 @@ extension TakePhotoViewController: UIImagePickerControllerDelegate{
                     }
 
                     let nmsPredictions = PrePostProcessor.outputsToNMSPredictions(outputs: outputs, outputColumn: ObjectDetector.columns, imgScaleX: imgScaleX, imgScaleY: imgScaleY, ivScaleX: ivScaleX, ivScaleY: ivScaleY, startX: startX, startY: startY)
-                    for prediction in nmsPredictions {
-                        print("Prediccion = Clase: " +  self.inferencer.classes[prediction.classIndex] + " Confianza: " + String(prediction.score))
-                    }
+                    
+                    if nmsPredictions.count > 0 {
+                        for prediction in nmsPredictions {
+                            print("Prediccion = Clase: " +  self.inferencer.classes[prediction.classIndex] + " Confianza: " + String(prediction.score))
+                        }
 
-                    DispatchQueue.main.async {
-                        PrePostProcessor.showDetection(imageView: self.takePhotoImageView, nmsPredictions: nmsPredictions, classes: self.inferencer.classes)
-                        if let classIndex = nmsPredictions.first?.classIndex{
-                            let word = self.inferencer.classes[classIndex]
-                            self.productToSearch = ClassTranslator.translate(word: word)
-                            self.searchProductsButton.isEnabled = true
-                            self.searchProductsButton.setTitle("Buscar " + (self.productToSearch ?? ""), for: .normal)
+                        DispatchQueue.main.async {
+                            PrePostProcessor.showDetection(imageView: self.takePhotoImageView, nmsPredictions: nmsPredictions, classes: self.inferencer.classes)
+                            if let classIndex = nmsPredictions.first?.classIndex{
+                                let word = self.inferencer.classes[classIndex]
+                                self.productToSearch = ClassTranslator.translate(word: word)
+                                self.searchProductsButton.isEnabled = true
+                                self.searchProductsButton.setTitle("Buscar " + (self.productToSearch ?? ""), for: .normal)
+                                self.saveImageResultIfNeeded()
+
+                            }
+                        }
+                    }else{
+                        DispatchQueue.main.async {
+                            let errorViewController = ErrorViewControllerFactory.createErrorViewControllerWithMessage(message: "No se encontraron predicciones para esta imagen")
+                            self.navigationController?.pushViewController(errorViewController, animated: true)
                         }
                     }
                 }

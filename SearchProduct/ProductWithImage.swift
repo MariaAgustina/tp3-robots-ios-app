@@ -7,13 +7,12 @@
 
 import UIKit
 
-class ProductWithImage: NSObject {
-    var image : UIImage
+struct ProductWithImage: Codable {
+    var image : Data
     var id : String
     
-    init(withImage image: UIImage, andId id: String) {
+    init(withImage image: Data, andId id: String) {
         self.image = image
         self.id = id
-        super.init()
     }
 }

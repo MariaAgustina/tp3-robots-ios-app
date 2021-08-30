@@ -20,11 +20,8 @@
             <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="FJt-0K-zD4">
-                    <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
-                </imageView>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Mti-Sv-tQa">
-                    <rect key="frame" x="20" y="727" width="374" height="48"/>
+                    <rect key="frame" x="20" y="712" width="374" height="48"/>
                     <color key="backgroundColor" systemColor="systemIndigoColor"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="48" id="OCO-yK-yXn"/>
@@ -38,7 +35,7 @@
                     </connections>
                 </button>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cD3-81-Tql">
-                    <rect key="frame" x="20" y="799" width="374" height="48"/>
+                    <rect key="frame" x="20" y="784" width="374" height="48"/>
                     <color key="backgroundColor" red="0.34509803919999998" green="0.33725490200000002" blue="0.83921568629999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="48" id="Uii-yM-her"/>
@@ -55,7 +52,7 @@
                     </connections>
                 </button>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jej-bu-O1G">
-                    <rect key="frame" x="20" y="655" width="374" height="48"/>
+                    <rect key="frame" x="20" y="640" width="374" height="48"/>
                     <color key="backgroundColor" systemColor="systemIndigoColor"/>
                     <constraints>
                         <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="48" id="O4u-ig-bfu"/>
@@ -69,23 +66,28 @@
                         <action selector="uploadPhotoButtonPressed:" destination="-1" eventType="touchUpInside" id="Pou-P1-fbk"/>
                     </connections>
                 </button>
+                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="FJt-0K-zD4">
+                    <rect key="frame" x="0.0" y="50" width="414" height="552"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="414" id="iv1-nv-RGi"/>
+                        <constraint firstAttribute="width" secondItem="FJt-0K-zD4" secondAttribute="height" multiplier="3:4" id="w56-FS-sO5"/>
+                    </constraints>
+                </imageView>
             </subviews>
             <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
             <constraints>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="cD3-81-Tql" secondAttribute="trailing" constant="20" id="5Yy-eW-1sR"/>
                 <constraint firstItem="cD3-81-Tql" firstAttribute="top" secondItem="Mti-Sv-tQa" secondAttribute="bottom" constant="24" id="5eb-1k-65C"/>
-                <constraint firstItem="FJt-0K-zD4" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="B66-Zh-EWy"/>
-                <constraint firstItem="FJt-0K-zD4" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="DNl-c1-go8"/>
-                <constraint firstAttribute="bottom" secondItem="FJt-0K-zD4" secondAttribute="bottom" id="GO2-Cp-TCf"/>
                 <constraint firstItem="Mti-Sv-tQa" firstAttribute="top" secondItem="jej-bu-O1G" secondAttribute="bottom" constant="24" id="GvH-Oo-FPR"/>
+                <constraint firstItem="FJt-0K-zD4" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="R46-T7-Zw2"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="Mti-Sv-tQa" secondAttribute="trailing" constant="20" id="YL1-fZ-D3W"/>
-                <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="cD3-81-Tql" secondAttribute="bottom" constant="15" id="Zcz-mL-eZd"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="cD3-81-Tql" secondAttribute="bottom" constant="30" id="Zcz-mL-eZd"/>
                 <constraint firstItem="cD3-81-Tql" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="20" id="ZpS-Qz-j5G"/>
                 <constraint firstItem="jej-bu-O1G" firstAttribute="trailing" secondItem="Mti-Sv-tQa" secondAttribute="trailing" id="acN-BM-DZQ"/>
+                <constraint firstItem="FJt-0K-zD4" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="50" id="h8P-XF-6QJ"/>
                 <constraint firstItem="jej-bu-O1G" firstAttribute="leading" secondItem="Mti-Sv-tQa" secondAttribute="leading" id="mcU-qM-bEk"/>
                 <constraint firstItem="Mti-Sv-tQa" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="20" id="oh2-0N-mTe"/>
-                <constraint firstItem="FJt-0K-zD4" firstAttribute="trailing" secondItem="fnl-2z-Ty3" secondAttribute="trailing" id="ucj-zu-33N"/>
             </constraints>
             <point key="canvasLocation" x="137.68115942028987" y="85.714285714285708"/>
         </view>

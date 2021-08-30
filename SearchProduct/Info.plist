@@ -69,6 +69,8 @@
 	</array>
 	<key>NSCameraUsageDescription</key>
 	<string>La aplicacion usara la camara para sacar foto a los productos</string>
+	<key>LSSupportsOpeningDocumentsInPlace</key>
+	<true/>
 	<key>NSPhotoLibraryAddUsageDescription</key>
 	<string>Acceder a la galeria de imagenes</string>
 </dict>
