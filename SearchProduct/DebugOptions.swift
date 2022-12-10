@@ -12,7 +12,7 @@ public class DebugOptions {
     var shouldDebug : Bool
     
         init(){
-            self.shouldDebug = true
+            self.shouldDebug = false
         }
         
 }

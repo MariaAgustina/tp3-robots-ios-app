@@ -1,5 +1,5 @@
 platform :ios, '12.0'
 target 'SearchProduct' do
-    pod 'LibTorch'
-
+  use_frameworks!
+  pod 'LibTorch-Lite', '~>1.13.0'
 end

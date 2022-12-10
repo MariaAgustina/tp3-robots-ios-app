@@ -23,9 +23,20 @@ class ClassTranslator: NSObject {
                                 "clock":"reloj",
                                 "vase":"jarron",
                                 "teddy bear":"oso de peluche",
-                                "hair drier":"secador de pelo"]
+                                "hair drier":"secador de pelo",
+                                "skateboard":"skateboard",
+                                "snowboard":"snowboard",
+                                "surfboard":"surfboard",
+                                "bowl":"bowl",
+                                "mate":"mate",
+                                "calabaza":"calabaza",
+                                "plastico":"plastico",
+                                "madera":"madera",
+                                "metal":"metal",
+                                "cartera":"cartera"
+                                ]
     
-    static func translate(word: String) -> String {
-        return self.translations[word] ?? word
+    static func translate(word: String) -> String? {
+        return self.translations[word] ?? nil
     }
 }

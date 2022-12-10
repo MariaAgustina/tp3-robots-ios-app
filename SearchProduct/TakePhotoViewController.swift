@@ -15,7 +15,7 @@ class TakePhotoViewController: UIViewController, UINavigationControllerDelegate 
     var image: UIImage?
     var imagePicker: UIImagePickerController!
     private var inferencer = ObjectDetector()
-    private var mateInferencer = ObjectMateDetector()
+    private var mateInferencer = ObjectCarteraDetector()
 
     var productsWithImage : [ProductWithImage]?
     var productsResult : ProductsResult?
@@ -36,11 +36,6 @@ class TakePhotoViewController: UIViewController, UINavigationControllerDelegate 
 
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        
-    }
-
     @IBAction func takePhotoButtonPressed(_ sender: UIButton) {
         
         imagePicker =  UIImagePickerController()
@@ -60,10 +55,12 @@ class TakePhotoViewController: UIViewController, UINavigationControllerDelegate 
     }
     
     func searchProduct(product: String){
+        self.productsWithImage = []
         let searchProductService = SearchProductsService()
         self.activityIndicatorView?.startAnimating()
-        searchProductService.searchProduct(product: product) { productsResult in
-            self.productsResult = productsResult
+        searchProductService.searchProduct(product: product) { [weak self] productsResult in
+            guard let strongSelf = self else { return }
+            strongSelf.productsResult = productsResult
             let dispatchGroup = DispatchGroup()
             let productImageService = ProductImageService()
             if let results = productsResult.results {
@@ -76,17 +73,17 @@ class TakePhotoViewController: UIViewController, UINavigationControllerDelegate 
                         dispatchGroup.leave()
                     } errorBlock: {
                         let errorViewController = ErrorViewControllerFactory.createErrorViewControllerWithMessage(message: "No se encontraron productos en la busqueda, revise la autenticacion")
-                        self.navigationController?.pushViewController(errorViewController, animated: true)
+                        strongSelf.navigationController?.pushViewController(errorViewController, animated: true)
                     }
                 }
             }
             dispatchGroup.notify(queue: .main, execute: {
-                if self.productsResult?.results == nil {
+                if strongSelf.productsResult?.results == nil {
                     let errorViewController = ErrorViewControllerFactory.createErrorViewControllerWithMessage(message: "No se encontraron productos en la busqueda, revise la autenticacion")
-                    self.navigationController?.pushViewController(errorViewController, animated: true)
+                    strongSelf.navigationController?.pushViewController(errorViewController, animated: true)
 
                 }
-                self.getSimilarImage()
+                strongSelf.getSimilarImage()
             })
             
         } errorBlock: {
@@ -105,8 +102,13 @@ class TakePhotoViewController: UIViewController, UINavigationControllerDelegate 
             self.activityIndicatorView?.stopAnimating()
             self.saveImagesSimilaritiesIfNeeded(productSimilarities: productsSimilarities)
             let productFoundId = productsSimilarities.first?.similar_pi //similarities of products are in order
+            print("Product found id:")
+            print(productFoundId ?? "")
+            print("Products results:")
+            print(self.productsResult?.results!)
             let productResult = self.productsResult?.results?.filter{ $0.id == productFoundId }.first
             if let url = URL(string: productResult?.permalink ?? ""){
+                print("url:" + url.absoluteString )
                 UIApplication.shared.open(url)
             }
         },errorBlock:{
@@ -169,6 +171,8 @@ class TakePhotoViewController: UIViewController, UINavigationControllerDelegate 
 extension TakePhotoViewController: UIImagePickerControllerDelegate{
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         self.materialToSearch = ""
+        self.productToSearch = ""
+        
         for subview in self.takePhotoImageView.subviews{
             subview.removeFromSuperview()
         }
@@ -198,11 +202,11 @@ extension TakePhotoViewController: UIImagePickerControllerDelegate{
         
         //predict mate
         DispatchQueue.global().async {
-            guard let outputsMate = self.mateInferencer.module.detect(image: &pixelBuffer,outputSize: ObjectMateDetector.output_size) else {
+            guard let outputsMate = self.mateInferencer.module.detect(image: &pixelBuffer,outputSize: ObjectCarteraDetector.output_size) else {
                 return
             }
 
-            let nmsPredictions = PrePostProcessor.outputsToNMSPredictions(outputs: outputsMate,outputColumn: ObjectMateDetector.columns, imgScaleX: imgScaleX, imgScaleY: imgScaleY, ivScaleX: ivScaleX, ivScaleY: ivScaleY, startX: startX, startY: startY)
+            let nmsPredictions = PrePostProcessor.outputsToNMSPredictions(outputs: outputsMate,outputColumn: ObjectCarteraDetector.columns, imgScaleX: imgScaleX, imgScaleY: imgScaleY, ivScaleX: ivScaleX, ivScaleY: ivScaleY, startX: startX, startY: startY)
             for prediction in nmsPredictions {
                 print("Prediccion = Clase: " +  self.mateInferencer.classes[prediction.classIndex] + " Confianza: " + String(prediction.score))
                 let posibleMaterial = self.mateInferencer.classes[prediction.classIndex]
@@ -219,48 +223,59 @@ extension TakePhotoViewController: UIImagePickerControllerDelegate{
                         self.productToSearch = ClassTranslator.translate(word: word)
                         self.searchProductsButton.isEnabled = true
                         if(self.materialToSearch != ""){
-                            self.productToSearch = "mate " + (self.materialToSearch ?? "")
+                            self.productToSearch = "cartera " + (self.materialToSearch ?? "")
                         }
                         self.searchProductsButton.setTitle("Buscar " + (self.productToSearch ?? ""), for: .normal)
                         self.saveImageResultIfNeeded()
                     }
 
                 }
+//            }else{
+//                print("No mates found, predicting other objects")
+////                //Predict other objects
+//                DispatchQueue.global().async {
+//                    guard let outputs = self.inferencer.module.detect(image: &pixelBuffer,outputSize: ObjectDetector.output_size) else {
+//                        return
+//                    }
+//
+//                    let nmsPredictions = PrePostProcessor.outputsToNMSPredictions(outputs: outputs, outputColumn: ObjectDetector.columns, imgScaleX: imgScaleX, imgScaleY: imgScaleY, ivScaleX: ivScaleX, ivScaleY: ivScaleY, startX: startX, startY: startY)
+//
+//                    if nmsPredictions.count > 0 {
+//                        for prediction in nmsPredictions {
+//                            print("Prediccion = Clase: " +  self.inferencer.classes[prediction.classIndex] + " Confianza: " + String(prediction.score))
+//                        }
+//
+//                        DispatchQueue.main.async {
+//                            PrePostProcessor.showDetection(imageView: self.takePhotoImageView, nmsPredictions: nmsPredictions, classes: self.inferencer.classes)
+//                            for prediction in nmsPredictions {
+//                                let predictionWord = self.inferencer.classes[prediction.classIndex]
+//                                if let translatedWord = ClassTranslator.translate(word: predictionWord){
+//                                    self.productToSearch = translatedWord
+//                                    break
+//                                }
+//                            }
+//
+//                            if self.productToSearch != "" {
+////                                let word = self.inferencer.classes[classIndex]
+////                                self.productToSearch = ClassTranslator.translate(word: word)
+//                                self.searchProductsButton.isEnabled = true
+//                                self.searchProductsButton.setTitle("Buscar " + (self.productToSearch ?? ""), for: .normal)
+//                                self.saveImageResultIfNeeded()
+//
+//                            }else{
+//                                let errorViewController = ErrorViewControllerFactory.createErrorViewControllerWithMessage(message: "No se encontraron predicciones para esta imagen")
+//                                self.navigationController?.pushViewController(errorViewController, animated: true)
+//                            }
+//                        }
             }else{
-                print("No mates found, predicting other objects")
-//                //Predict other objects
-                DispatchQueue.global().async {
-                    guard let outputs = self.inferencer.module.detect(image: &pixelBuffer,outputSize: ObjectDetector.output_size) else {
-                        return
-                    }
-
-                    let nmsPredictions = PrePostProcessor.outputsToNMSPredictions(outputs: outputs, outputColumn: ObjectDetector.columns, imgScaleX: imgScaleX, imgScaleY: imgScaleY, ivScaleX: ivScaleX, ivScaleY: ivScaleY, startX: startX, startY: startY)
-                    
-                    if nmsPredictions.count > 0 {
-                        for prediction in nmsPredictions {
-                            print("Prediccion = Clase: " +  self.inferencer.classes[prediction.classIndex] + " Confianza: " + String(prediction.score))
-                        }
-
-                        DispatchQueue.main.async {
-                            PrePostProcessor.showDetection(imageView: self.takePhotoImageView, nmsPredictions: nmsPredictions, classes: self.inferencer.classes)
-                            if let classIndex = nmsPredictions.first?.classIndex{
-                                let word = self.inferencer.classes[classIndex]
-                                self.productToSearch = ClassTranslator.translate(word: word)
-                                self.searchProductsButton.isEnabled = true
-                                self.searchProductsButton.setTitle("Buscar " + (self.productToSearch ?? ""), for: .normal)
-                                self.saveImageResultIfNeeded()
-
-                            }
-                        }
-                    }else{
-                        DispatchQueue.main.async {
-                            let errorViewController = ErrorViewControllerFactory.createErrorViewControllerWithMessage(message: "No se encontraron predicciones para esta imagen")
-                            self.navigationController?.pushViewController(errorViewController, animated: true)
-                        }
-                    }
+                DispatchQueue.main.async {
+                    let errorViewController = ErrorViewControllerFactory.createErrorViewControllerWithMessage(message: "No se encontraron predicciones para esta imagen")
+                    self.navigationController?.pushViewController(errorViewController, animated: true)
                 }
             }
         }
     }
 }
+//    }
+//}
 

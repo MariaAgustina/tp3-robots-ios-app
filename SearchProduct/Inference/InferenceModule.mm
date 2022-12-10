@@ -5,7 +5,7 @@
 // LICENSE file in the root directory of this source tree.
 
 #import "InferenceModule.h"
-#import <LibTorch/LibTorch.h>
+#import <Libtorch-Lite/Libtorch-Lite.h>
 
 // 640x640 is the default image size used in the export.py in the yolov5 repo to export the TorchScript model, 25200*85 is the model output size
 const int input_width = 640;
@@ -14,14 +14,14 @@ const int input_height = 640;
 
 
 @implementation InferenceModule {
-    @protected torch::jit::script::Module _impl;
+    @protected torch::jit::mobile::Module _impl;
 }
 
 - (nullable instancetype)initWithFileAtPath:(NSString*)filePath {
     self = [super init];
     if (self) {
         try {
-            _impl = torch::jit::load(filePath.UTF8String);
+            _impl = torch::jit::_load_for_mobile(filePath.UTF8String);
             _impl.eval();
         } catch (const std::exception& exception) {
             NSLog(@"%s", exception.what());
@@ -33,11 +33,14 @@ const int input_height = 640;
 
 - (NSArray<NSNumber*>*)detectImage:(void*)imageBuffer outputSize:(NSInteger)outputSize {
     try {
-        at::Tensor tensor = torch::from_blob(imageBuffer, { 1, 3, input_width, input_height }, at::kFloat);
-        torch::autograd::AutoGradMode guard(false);
-        at::AutoNonVariableTypeMode non_var_type_mode(true);
-        
+        at::Tensor tensor = torch::from_blob(imageBuffer, { 1, 3, input_height, input_width }, at::kFloat);
+
+        c10::InferenceMode guard;
+        CFTimeInterval startTime = CACurrentMediaTime();
         auto outputTuple = _impl.forward({ tensor }).toTuple();
+        CFTimeInterval elapsedTime = CACurrentMediaTime() - startTime;
+        NSLog(@"inference time:%f", elapsedTime);
+
         auto outputTensor = outputTuple->elements()[0].toTensor();
 
         float* floatBuffer = outputTensor.data_ptr<float>();

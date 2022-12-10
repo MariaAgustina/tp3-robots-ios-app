@@ -26,7 +26,7 @@ class ObjectDetector {
     }()
     
     static let output_size = 25200*85 
-    static let columns = 85 // left, top, right, bottom, score and 5 class probability
+    static let columns = 85 // left, top, right, bottom, score and 80 class probability
 
 
 }
