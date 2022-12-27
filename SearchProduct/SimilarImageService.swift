@@ -10,7 +10,7 @@ import UIKit
 class SimilarImageService: NSObject {
     
     func getMostSimilarImage(productsWithImage:[ProductWithImage],successBlock: @escaping (([ProductSimilarity])->()), errorBlock: @escaping (()->())){
-        var request = URLRequest(url: URL(string: "http://localhost:8000/upload-image")!)
+        var request = URLRequest(url: URL(string: "http://192.168.1.54:8000/upload-image")!)
         
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
         request.httpMethod = "POST"
