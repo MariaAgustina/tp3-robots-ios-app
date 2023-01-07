@@ -7,34 +7,36 @@
 
 import Foundation
 
+enum NetworkError: Error{
+    case networkError
+}
 
 class PredictImageService: NSObject {
 
     func predictImage(
-        image: UIImage,
-        //TODO: completion block etc
-        successBlock: @escaping (([ProductSimilarity])->()),
-        errorBlock: @escaping (()->())
+        image: ProductWithImage,
+        completionHandler: @escaping (Result<ImagePrediction, Error>) -> Void
     ){
-        var request = URLRequest(url: URL(string: "http://192.168.1.54:8000/predict-image")!)
 
+        var request = URLRequest(url: ServiceURL.predictImageURL())
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
         request.httpMethod = "POST"
 
         let encoder = JSONEncoder()
-        try? request.httpBody = encoder.encode(image.pngData())
+        try? request.httpBody = encoder.encode(image)
 
         let task = URLSession.shared.dataTask(with: request) { data, response, error in
 
             DispatchQueue.main.async {
                 if let data = data {
                     let decoder = JSONDecoder()
-                    if let productsSimilarity = try? decoder.decode([ProductSimilarity].self, from: data) {
-                        successBlock(productsSimilarity)
+                    if let prediction = try? decoder.decode(ImagePrediction.self, from: data) {
+                        completionHandler(.success(prediction))
                     }
                 } else {
-                    print(error ?? "Error in requesting products")
-                    errorBlock()
+                    print(error ?? "Error in requesting image prediction")
+                    completionHandler(.failure(NetworkError.networkError))
+
                 }
             }
         }

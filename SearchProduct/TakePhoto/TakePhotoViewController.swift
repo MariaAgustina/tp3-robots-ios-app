@@ -16,6 +16,7 @@ class TakePhotoViewController: UIViewController, UINavigationControllerDelegate 
     var imagePicker: UIImagePickerController!
     private var inferencer = ObjectDetector()
     private var mateInferencer = ObjectCarteraDetector()
+    private let predictImageService = PredictImageService()
 
     var productsWithImage : [ProductWithImage]?
     var productsResult : ProductsResult?
@@ -72,6 +73,7 @@ class TakePhotoViewController: UIViewController, UINavigationControllerDelegate 
                         strongSelf.productsWithImage?.append(productWithImage)
                         dispatchGroup.leave()
                     } errorBlock: {
+                        strongSelf.activityIndicatorView?.stopAnimating()
                         let errorViewController = ErrorViewControllerFactory.createErrorViewControllerWithMessage(message: "No se encontraron productos en la busqueda, revise la autenticacion")
                         strongSelf.navigationController?.pushViewController(errorViewController, animated: true)
                     }
@@ -79,6 +81,7 @@ class TakePhotoViewController: UIViewController, UINavigationControllerDelegate 
             }
             dispatchGroup.notify(queue: .main, execute: {
                 if strongSelf.productsResult?.results == nil {
+                    strongSelf.activityIndicatorView?.stopAnimating()
                     let errorViewController = ErrorViewControllerFactory.createErrorViewControllerWithMessage(message: "No se encontraron productos en la busqueda, revise la autenticacion")
                     strongSelf.navigationController?.pushViewController(errorViewController, animated: true)
 
@@ -165,26 +168,51 @@ class TakePhotoViewController: UIViewController, UINavigationControllerDelegate 
             print("Unexpected error saving image: \(error).")
         }
     }
+
+    func predictImage(image: UIImage){
+        guard let pngData = image.pngData() else {
+            return
+        }
+        let imageData = ProductWithImage(withImage: pngData, andId: "prediction_image")
+        //TODO: loading here
+        predictImageService.predictImage(image: imageData) { result in
+            switch result {
+            case .success(let imagePrediction):
+                print("Service success")
+                self.productToSearch = imagePrediction.prediction
+                self.searchProductsButton.setTitle("Buscar " + (self.productToSearch ?? ""), for: .normal)
+                self.searchProductsButton.isEnabled = true //TODO: isEnabled allways?
+            case .failure(let error):
+                print("Service error")
+            }
+        }
+
+    }
     
 }
 
 extension TakePhotoViewController: UIImagePickerControllerDelegate{
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
-        self.materialToSearch = ""
-        self.productToSearch = ""
+        materialToSearch = ""
+        productToSearch = ""
         
         for subview in self.takePhotoImageView.subviews{
             subview.removeFromSuperview()
         }
         
-        self.takePhotoImageView.layer.sublayers?.forEach { $0.removeFromSuperlayer() }
+        takePhotoImageView.layer.sublayers?.forEach { $0.removeFromSuperlayer() }
         
         imagePicker.dismiss(animated: true, completion: nil)
         
-        image = info[UIImagePickerController.InfoKey.originalImage] as? UIImage
-        image = image!.resized(to: CGSize(width: CGFloat(PrePostProcessor.inputWidth), height: CGFloat(PrePostProcessor.inputHeight)*image!.size.height/image!.size.width))
-        takePhotoImageView.image = image
-        
+        if var image = info[UIImagePickerController.InfoKey.originalImage] as? UIImage{
+            image = image.resized(to: CGSize(width: CGFloat(PrePostProcessor.inputWidth), height: CGFloat(PrePostProcessor.inputHeight)*image.size.height/image.size.width))
+            takePhotoImageView.image = image
+            predictImage(image: image)
+        }
+
+
+        return
+        //TODO: this is no necessary anymore
         let resizedImage = image!.resized(to: CGSize(width: CGFloat(PrePostProcessor.inputWidth), height: CGFloat(PrePostProcessor.inputHeight)))
         
         let imgScaleX = Double(image!.size.width / CGFloat(PrePostProcessor.inputWidth));
