@@ -15,7 +15,7 @@ class PredictImageService: NSObject {
 
     func predictImage(
         image: ProductWithImage,
-        completionHandler: @escaping (Result<ImagePrediction, Error>) -> Void
+        completionHandler: @escaping (Result<Product, Error>) -> Void
     ){
 
         var request = URLRequest(url: ServiceURL.predictImageURL())
@@ -30,7 +30,7 @@ class PredictImageService: NSObject {
             DispatchQueue.main.async {
                 if let data = data {
                     let decoder = JSONDecoder()
-                    if let prediction = try? decoder.decode(ImagePrediction.self, from: data) {
+                    if let prediction = try? decoder.decode(Product.self, from: data) {
                         completionHandler(.success(prediction))
                     }
                 } else {

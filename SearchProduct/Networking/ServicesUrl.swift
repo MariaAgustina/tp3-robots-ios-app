@@ -9,7 +9,7 @@ import Foundation
 
 struct ServiceURL {
 
-    static let ip = "http://192.168.1.78:8000"
+    static let ip = "http://192.168.1.18:8000"
     static let predictImageEndpoint = "/predict-image"
     static let similarImageEndpoint = "/similar-image"
 

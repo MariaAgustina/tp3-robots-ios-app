@@ -59,8 +59,8 @@ extension ResultsViewController : UITableViewDataSource {
         }
         let product = self.productsResult?.results?[indexPath.row]
         
-        //this must be in a separate array and not every time a cell is reloaded
         var request = URLRequest(url: URL(string: product?.thumbnail ?? "")!)
+        //this must be in a separate array and not every time a cell is reloaded
         let task = URLSession.shared.dataTask(with: request) {
             data, response, error in
 
