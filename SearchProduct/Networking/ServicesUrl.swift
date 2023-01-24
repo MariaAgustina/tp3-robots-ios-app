@@ -11,13 +11,8 @@ struct ServiceURL {
 
     static let ip = "http://192.168.1.18:8000"
     static let predictImageEndpoint = "/predict-image"
-    static let similarImageEndpoint = "/similar-image"
 
     static func predictImageURL() -> URL {
         URL(string: ServiceURL.ip + ServiceURL.predictImageEndpoint)!
-    }
-
-    static func similarImageURL() -> URL {
-        URL(string: ServiceURL.ip + ServiceURL.similarImageEndpoint)!
     }
 }

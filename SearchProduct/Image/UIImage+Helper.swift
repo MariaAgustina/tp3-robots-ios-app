@@ -1,6 +1,9 @@
 import UIKit
 
 extension UIImage {
+    static let inputWidth = 640
+    static let inputHeight = 640
+
     func resized(to newSize: CGSize, scale: CGFloat = 1) -> UIImage {
         let format = UIGraphicsImageRendererFormat.default()
         format.scale = scale

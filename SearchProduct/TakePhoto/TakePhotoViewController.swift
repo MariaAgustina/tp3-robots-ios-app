@@ -14,17 +14,12 @@ class TakePhotoViewController: UIViewController, UINavigationControllerDelegate 
     @IBOutlet weak var takePhotoImageView: UIImageView!
     var image: UIImage?
     var imagePicker: UIImagePickerController!
-    private var inferencer = ObjectDetector()
-    private var mateInferencer = ObjectCarteraDetector()
     private let predictImageService = PredictImageService()
 
-    var productsWithImage : [ProductWithImage]?
-    var productsResult : ProductsResult?
     var activityIndicatorView : UIActivityIndicatorView?
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.productsWithImage = []
         self.searchProductsButton.isEnabled = false
 
         self.activityIndicatorView = UIActivityIndicatorView(frame: CGRect(x: 100 ,y: 200, width: 50, height: 50)) as UIActivityIndicatorView
@@ -81,7 +76,7 @@ class TakePhotoViewController: UIViewController, UINavigationControllerDelegate 
                     self?.activityIndicatorView?.stopAnimating()
                 }
             case .failure(let error):
-                print("Service error")
+                print("Service error" + error.localizedDescription)
             }
         }
 
@@ -101,7 +96,7 @@ extension TakePhotoViewController: UIImagePickerControllerDelegate{
         imagePicker.dismiss(animated: true, completion: nil)
         
         if var image = info[UIImagePickerController.InfoKey.originalImage] as? UIImage{
-            image = image.resized(to: CGSize(width: CGFloat(PrePostProcessor.inputWidth), height: CGFloat(PrePostProcessor.inputHeight)*image.size.height/image.size.width))
+            image = image.resized(to: CGSize(width: CGFloat(UIImage.inputWidth), height: CGFloat(UIImage.inputHeight)*image.size.height/image.size.width))
             takePhotoImageView.image = image
             searchProductsButton.isEnabled = true
         }
