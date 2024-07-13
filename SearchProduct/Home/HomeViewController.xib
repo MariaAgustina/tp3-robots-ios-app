@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="22155" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_12" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22131"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="HomeViewController" customModule="SearchProduct" customModuleProvider="target">
+            <connections>
+                <outlet property="submitPhotoButton" destination="Vz7-Na-i8m" id="M5X-Mz-4EY"/>
+                <outlet property="takePhotoButton" destination="F8E-86-NtI" id="Mc2-pI-1ZU"/>
+                <outlet property="titleLabel" destination="BAH-8f-u0d" id="MCS-Wd-pG2"/>
+                <outlet property="view" destination="iN0-l3-epB" id="K6r-JJ-D5n"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB">
+            <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BAH-8f-u0d">
+                    <rect key="frame" x="175.66666666666666" y="59" width="42" height="21"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                    <nil key="textColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Vz7-Na-i8m">
+                    <rect key="frame" x="20" y="718" width="353" height="50"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="50" id="IQI-Ss-cfl"/>
+                    </constraints>
+                    <state key="normal" title="Button"/>
+                    <buttonConfiguration key="configuration" style="plain" image="photo.on.rectangle" catalog="system" title="Button" titleAlignment="center"/>
+                    <connections>
+                        <action selector="uploadPhotoFromGalleryButtonPressed:" destination="-1" eventType="touchUpInside" id="PyO-ud-Cuh"/>
+                    </connections>
+                </button>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="F8E-86-NtI">
+                    <rect key="frame" x="20" y="648" width="353" height="50"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="50" id="3yG-fd-TFo"/>
+                    </constraints>
+                    <state key="normal" title="Button"/>
+                    <buttonConfiguration key="configuration" style="plain" image="camera" catalog="system" title="Button" titleAlignment="center"/>
+                    <connections>
+                        <action selector="takePhotoButtonPressed:" destination="-1" eventType="touchUpInside" id="Lah-yD-mi9"/>
+                    </connections>
+                </button>
+            </subviews>
+            <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
+            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+            <constraints>
+                <constraint firstItem="Vz7-Na-i8m" firstAttribute="trailing" secondItem="F8E-86-NtI" secondAttribute="trailing" id="4un-dz-Dae"/>
+                <constraint firstItem="BAH-8f-u0d" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="Pes-gd-T9K"/>
+                <constraint firstItem="Vz7-Na-i8m" firstAttribute="top" secondItem="F8E-86-NtI" secondAttribute="bottom" constant="20" id="VoA-H4-pR8"/>
+                <constraint firstItem="BAH-8f-u0d" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" id="gf6-jB-ALF"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="F8E-86-NtI" secondAttribute="trailing" constant="20" id="k68-uG-Hj4"/>
+                <constraint firstItem="F8E-86-NtI" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="20" id="mtb-qh-OFD"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" secondItem="Vz7-Na-i8m" secondAttribute="bottom" constant="50" id="qLP-Gq-dB6"/>
+                <constraint firstItem="Vz7-Na-i8m" firstAttribute="leading" secondItem="F8E-86-NtI" secondAttribute="leading" id="qND-5J-NlX"/>
+            </constraints>
+            <point key="canvasLocation" x="140" y="21"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="camera" catalog="system" width="128" height="93"/>
+        <image name="photo.on.rectangle" catalog="system" width="128" height="98"/>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
+</document>

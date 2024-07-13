@@ -18,8 +18,11 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // This delegate does not imply the connecting scene or session are new (see `application:configurationForConnectingSceneSession` instead).
         
         guard let _ = (scene as? UIWindowScene) else { return }
-        let takePhotoViewController = TakePhotoViewController(nibName: "TakePhotoViewController", bundle: nil)
-        let navController = UINavigationController(rootViewController: takePhotoViewController)
+        let homeViewController = HomeViewController(nibName: "HomeViewController", bundle: nil)
+        let navController = UINavigationController(rootViewController: homeViewController)
+//        var searcherViewController = SearcherViewController(nibName: "SearcherViewController", bundle: nil)
+//        let navController = UINavigationController(rootViewController: searcherViewController)
+
         self.window?.rootViewController = navController
     }
 
