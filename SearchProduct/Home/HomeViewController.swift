@@ -10,6 +10,7 @@ import UIKit
 
 final class HomeViewController: UIViewController, UINavigationControllerDelegate {
 
+    @IBOutlet weak var subtitleLabel: UILabel!
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var submitPhotoButton: UIButton!
     @IBOutlet weak var takePhotoButton: UIButton!
@@ -18,15 +19,28 @@ final class HomeViewController: UIViewController, UINavigationControllerDelegate
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.backgroundColor = BagifyTheme.darkBlue
+        self.navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
 
         titleLabel.text = "Bagify"
         titleLabel.font = UIFont(name: "Pacifico-Regular", size: 100)
         titleLabel.textColor = BagifyTheme.lightPink
 
+        let bullet = "•  "
+        let text = """
+        \(bullet)Subí una foto de tu cartera
+        \(bullet)Encontrá una similar
+        """
+
+        subtitleLabel.font = UIFont(name: "Pacifico-Regular", size: 28)
+        subtitleLabel.textColor = BagifyTheme.lightPink
+        subtitleLabel.numberOfLines = 0
+        subtitleLabel.text = text
+
         takePhotoButton.setTitle("  Sacar Foto", for: .normal)
         submitPhotoButton.setTitle("  Subir Foto", for: .normal)
         setFormatToButton(button:takePhotoButton)
         setFormatToButton(button: submitPhotoButton)
+
     }
 
     func setFormatToButton(button: UIButton) {

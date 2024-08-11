@@ -12,6 +12,7 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="HomeViewController" customModule="SearchProduct" customModuleProvider="target">
             <connections>
                 <outlet property="submitPhotoButton" destination="Vz7-Na-i8m" id="M5X-Mz-4EY"/>
+                <outlet property="subtitleLabel" destination="HZ5-zy-fK8" id="8TL-jK-vXN"/>
                 <outlet property="takePhotoButton" destination="F8E-86-NtI" id="Mc2-pI-1ZU"/>
                 <outlet property="titleLabel" destination="BAH-8f-u0d" id="MCS-Wd-pG2"/>
                 <outlet property="view" destination="iN0-l3-epB" id="K6r-JJ-D5n"/>
@@ -50,11 +51,21 @@
                         <action selector="takePhotoButtonPressed:" destination="-1" eventType="touchUpInside" id="Lah-yD-mi9"/>
                     </connections>
                 </button>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HZ5-zy-fK8">
+                    <rect key="frame" x="40" y="160" width="313" height="20.333333333333343"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                    <nil key="textColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
             </subviews>
             <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
             <constraints>
                 <constraint firstItem="Vz7-Na-i8m" firstAttribute="trailing" secondItem="F8E-86-NtI" secondAttribute="trailing" id="4un-dz-Dae"/>
+                <constraint firstItem="HZ5-zy-fK8" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="B1n-cb-iHP"/>
+                <constraint firstItem="HZ5-zy-fK8" firstAttribute="top" secondItem="BAH-8f-u0d" secondAttribute="bottom" constant="80" id="Fdc-jj-OqE"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="HZ5-zy-fK8" secondAttribute="trailing" constant="40" id="IPb-dn-2y4"/>
+                <constraint firstItem="HZ5-zy-fK8" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="40" id="KRC-5x-29X"/>
                 <constraint firstItem="BAH-8f-u0d" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="Pes-gd-T9K"/>
                 <constraint firstItem="Vz7-Na-i8m" firstAttribute="top" secondItem="F8E-86-NtI" secondAttribute="bottom" constant="20" id="VoA-H4-pR8"/>
                 <constraint firstItem="BAH-8f-u0d" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" id="gf6-jB-ALF"/>
